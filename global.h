@@ -5,12 +5,12 @@
 #define INPUT "c_0000.csv"
 #endif
 
-#ifndef N
-#define N 64000
+#ifndef N_SAMPLES
+#define N_SAMPLES 64000
 #endif
 
-#ifndef FEATURES
-#define FEATURES 7
+#ifndef N_FEATURES
+#define N_FEATURES 7
 #define INDEX_X 0
 #define INDEX_Y 1
 #define INDEX_Z 2
@@ -20,7 +20,3 @@
 #define INDEX_M 6
 #define INDEX_ID 7 
 #endif
-
-typedef struct {
-    double values[N][FEATURES];
-} Input;

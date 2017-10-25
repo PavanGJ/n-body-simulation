@@ -1,6 +1,6 @@
 #include "global.h"
 // This file is used to parse the input data and get it to the form that is required.
-void parseCSVData(float values[N][FEATURES]){
+void parseCSVData(float values[N_SAMPLES][FEATURES]){
     /*
      * This subroutine parses data from an input file defined by INPUT.
      * It parses a csv file and extracts x, y, z, vx, vy, vz, m in the same order & discards an id field defined in the input file.
@@ -15,23 +15,24 @@ void parseCSVData(float values[N][FEATURES]){
                         &values[idx][INDEX_VX],
                         &values[idx][INDEX_VY],
                         &values[idx][INDEX_VZ],
-                        &values[idx][INDEX_M]) != EOF && idx < N; idx++);
+                        &values[idx][INDEX_M]) != EOF && idx < N_SAMPLES; idx++);
     return;
 }
-void generate3DData(float values[N][FEATURES], int x[2], int y[2], int z[2], int vx[2], int vy[2], int vz[2], int m[2]){
+void generate3DData(float values[N_SAMPLES][FEATURES], int x[2], int y[2], int z[2], int vx[2], int vy[2], int vz[2], int m[2]){
     /*
      * This subroutine generates 3-dimensional data given the min and max values for spatial coordinates x, y, z, velocities vx, vy, vz and mass m.
      */
     return;
 }
-int main(){
-    float arr[N][FEATURES];
-    int i;
-    printf("Hello");
-    parseCSVData(arr);
-    printf("Hello");
-    for(i = 0; i < N; i++){
-        printf("%d %f\n",i,arr[i][0]);
-    }
-    return 0;
-}
+/*
+ *  Usage example:
+ *
+ *  int main(){
+ *      float arr[N_SAMPLES][FEATURES];
+ *      int i;
+ *      parseCSVData(arr);
+ *      // CODE USING `arr`
+ *      return 0;
+ *  }
+ *
+ */
