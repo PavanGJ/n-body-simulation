@@ -12,11 +12,14 @@
 
 //Declaring global memory
 __device__ float4 attr[N_SAMPLES];
-__device__ float3 velocity[N_SAMPLES];
+__device__ float3 vel[N_SAMPLES];
+__device__ float3 acc[N_SAMPLES];
 
 //Declaring simulation kernel.
 //Takes # of iterations as an input.
-__global__ void simulateNPairs(int);
+__global__ void computeUpdates();
+
+__global__ void updateValues();
 
 __device__ float3 computeForce(float4, float4);
 

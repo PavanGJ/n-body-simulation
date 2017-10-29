@@ -20,3 +20,7 @@
 #define INDEX_M 6
 #define INDEX_ID 7 
 #endif
+
+#ifndef ITERATIONS
+#define ITERATIONS 100
+#endif
