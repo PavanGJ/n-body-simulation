@@ -2,7 +2,7 @@
 
 //Define # of Blocks in the Device and the # of threads in each block.
 #ifndef N_BLOCKS
-#define N_BLOCKS 4
+#define N_BLOCKS 125
 #define THREADS_PER_BLOCK 512
 #endif
 
