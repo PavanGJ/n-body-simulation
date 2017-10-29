@@ -23,4 +23,4 @@ __global__ void updateValues();
 
 __device__ float3 computeForce(float4, float4);
 
-__device__ float3 computeTileUpdates(float4, float3);
+__device__ float3 computeTileUpdates(float4);

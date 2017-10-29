@@ -10,7 +10,7 @@ __global__ void computeUpdates(){
     int N = N_SAMPLES / (gridDim.y + 1);
     float4 obj;
     float3 tileAcc, acceleration = {0.0f, 0.0f, 0.0f};
-    extern __shared__ float4[] sharedObj;
+    extern __shared__ float4 sharedObj[];
     /*
      *  Compute object index as a function of block dimension, block index and thread index.
      *  This computation need to be changed if the programming model is changed from one object per thread.
@@ -27,6 +27,7 @@ __global__ void computeUpdates(){
         acceleration.x += tileAcc.x;
         acceleration.y += tileAcc.y;
         acceleration.z += tileAcc.z;
+        __syncthreads();
     }
     /*
      *  Update global values of acceleration thus setting it up for updation of spatial coordinates and
@@ -44,7 +45,7 @@ __global__ void updateValues(){
      */
     int idx;
     float4 obj;
-    float3 v, a;
+    float3 v, a, resetA = {0.0f, 0.0f, 0.0f};
     /*
      *  Compute object index as a function of block dimension, block index and thread index.
      *  This computation need to be changed if the programming model is changed from one object per thread.
@@ -86,7 +87,7 @@ __global__ void updateValues(){
      */
     attr[idx] = obj;
     vel[idx] = v;
-    acc[idx] = {0.0f, 0.0f, 0.0f};
+    acc[idx] = resetA;
 }
 __device__ float3 computeForce(float4 attr_obj_1, float4 attr_obj_2){
     /*
@@ -127,11 +128,11 @@ __device__ float3 computeTileUpdates(float4 obj){
      *  Computes the relative change in acceleration as a result of the force acting on the body exerted by the
      *  bodies defined within the tile.
      */
-    extern __shared__ float4[] sharedObj;                               //Declare sharedObjects for the tile.
+    extern __shared__ float4 sharedObj[];                               //Declare sharedObjects for the tile.
     int idx;
     float3 accUpdates, relAcc = {0.0f, 0.0f, 0.0f};
     for(idx = 0; idx < blockDim.x; idx++){
-        accUpdates = computeForce(obj, sharedObj[i]);
+        accUpdates = computeForce(obj, sharedObj[idx]);
         relAcc.x += accUpdates.x;
         relAcc.y += accUpdates.y;
         relAcc.z += accUpdates.z;
