@@ -50,7 +50,7 @@ void generate3DData(float4 *phy_attributes, float3 *velocities, int x[2], int y[
  *  int main(){
  *      float4 phy_attributes[N_SAMPLES];
  *      float3 velocities[N_SAMPLES];
- *      parseCSVData(&phy_attributes, &velocities);
+ *      parseCSVData((float4 *)phy_attributes,(float3 *)velocities);
  *      // REST OF THE CODE
  *      return 0;
  *  }
