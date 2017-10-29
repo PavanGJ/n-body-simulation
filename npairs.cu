@@ -1,4 +1,4 @@
-#import "npairs.h"
+#include "npairs.h"
 
 //This file defines the functions and kernels to be run on the CUDA device.
 
@@ -10,7 +10,7 @@ __global__ void computeUpdates(){
     int N = N_SAMPLES / (gridDim.y + 1);
     float4 obj;
     float3 tileAcc, acceleration = {0.0f, 0.0f, 0.0f};
-    extern __shared__ sharedObj[];
+    extern __shared__ float4[] sharedObj;
     /*
      *  Compute object index as a function of block dimension, block index and thread index.
      *  This computation need to be changed if the programming model is changed from one object per thread.
@@ -131,7 +131,7 @@ __device__ float3 computeTileUpdates(float4 obj){
     int idx;
     float3 accUpdates, relAcc = {0.0f, 0.0f, 0.0f};
     for(idx = 0; idx < blockDim.x; idx++){
-        accUpdates = computeForce(obj, sharedObj[i])
+        accUpdates = computeForce(obj, sharedObj[i]);
         relAcc.x += accUpdates.x;
         relAcc.y += accUpdates.y;
         relAcc.z += accUpdates.z;

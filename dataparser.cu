@@ -25,8 +25,8 @@ void writeCSV(float4 *phy_attributes, float3 *velocities, int step){
      */
     FILE* stream;
     int idx = 0;
-    char[128] output;
-    sprintf(output, "output_%d.csv", step)
+    char output[128];
+    sprintf(output, "output_%d.csv", step);
     stream = fopen(output, "w");
     for(idx = 0; fprintf(stream,"%f,%f,%f,%f,%f,%f,%f\n",
                             phy_attributes[idx].x,
