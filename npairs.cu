@@ -83,7 +83,7 @@ __device__ float3 computeTileUpdates(float4 obj, float3 objAcc){
      *  bodies defined within the tile.
      */
     for(idx = 0; idx < blockDim.x; idx++){
-        float3 accUpdates = computeFloat(obj, sharedObj[i])
+        float3 accUpdates = computeForce(obj, sharedObj[i])
         objAcc.x += accUpdates.x;
         objAcc.y += accUpdates.y;
         objAcc.z += accUpdates.z;
