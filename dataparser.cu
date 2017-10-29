@@ -19,6 +19,25 @@ void parseCSVData(float4 *phy_attributes, float3 *velocities){
                         &phy_attributes[idx].w) != EOF && idx < N_SAMPLES; idx++);
     return;
 }
+void writeCSV(float4 *phy_attributes, float3 *velocities, int step){
+    /*
+     * This subroutine writes data to an output file.
+     */
+    FILE* stream;
+    int idx = 0;
+    char[128] output;
+    sprintf(output, "output_%d.csv", step)
+    stream = fopen(output, "w");
+    for(idx = 0; fprintf(stream,"%f,%f,%f,%f,%f,%f,%f\n",
+                            phy_attributes[idx].x,
+                            phy_attributes[idx].y,
+                            phy_attributes[idx].z,
+                            velocities[idx].x,
+                            velocities[idx].y,
+                            velocities[idx].z,
+                            phy_attributes[idx].w) != EOF && idx < N_SAMPLES; idx++);
+    return;
+}
 void generate3DData(float4 *phy_attributes, float3 *velocities, int x[2], int y[2], int z[2], int vx[2], int vy[2], int vz[2], int m[2]){
     /*
      * This subroutine generates 3-dimensional data given the min and max values for spatial coordinates x, y, z, velocities vx, vy, vz and mass m.
