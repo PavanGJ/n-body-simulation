@@ -15,6 +15,9 @@ __device__ float4 attr[N_SAMPLES];
 __device__ float3 vel[N_SAMPLES];
 __device__ float3 acc[N_SAMPLES];
 
+//Declaring shared memory
+__shared__ float4 sharedObj[THREADS_PER_BLOCK];
+
 //Declaring simulation kernel.
 //Takes # of iterations as an input.
 __global__ void computeUpdates();

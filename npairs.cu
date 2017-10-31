@@ -131,8 +131,13 @@ __device__ float3 computeTileUpdates(float4 obj){
     extern __shared__ float4 sharedObj[];                               //Declare sharedObjects for the tile.
     int idx;
     float3 accUpdates, relAcc = {0.0f, 0.0f, 0.0f};
+    float4 shObj;
     for(idx = 0; idx < blockDim.x; idx++){
-        accUpdates = computeForce(obj, sharedObj[idx]);
+        shObj = sharedObj[idx];
+        //  Skip the iteration if the two objects/bodies are the same.
+        if(shObj.x == obj.x && shObj.y == obj.y && shObj.z == obj.z && shObj.w == obj.w)
+            continue;
+        accUpdates = computeForce(obj, shObj);
         relAcc.x += accUpdates.x;
         relAcc.y += accUpdates.y;
         relAcc.z += accUpdates.z;
