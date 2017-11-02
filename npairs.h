@@ -7,7 +7,7 @@
 #endif
 
 #ifndef GRAVI_CONST
-#define GRAVI_CONST 6.67408/100000000000
+#define GRAVI_CONST 1.0
 #endif
 
 //Declaring global memory
