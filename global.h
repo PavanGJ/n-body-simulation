@@ -22,5 +22,5 @@
 #endif
 
 #ifndef ITERATIONS
-#define ITERATIONS 100
+#define ITERATIONS 2000
 #endif

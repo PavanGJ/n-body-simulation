@@ -20,15 +20,15 @@ int main(){
     cudaMemcpyToSymbol(attr, phy_attributes, sizeof(phy_attributes));
     cudaMemcpyToSymbol(vel, velocities, sizeof(velocities));
     for(iter = 0; iter < ITERATIONS; iter++){
-        //  Call the kernels to execute over GPU.
-        computeUpdates<<<N_BLOCKS, THREADS_PER_BLOCK>>>();
-        updateValues<<<N_BLOCKS, THREADS_PER_BLOCK>>>();
         //  Write intermediate results every 100 iterations.
         if(iter % 100 == 0){
             cudaMemcpyFromSymbol(phy_attributes, attr, sizeof(phy_attributes));
             cudaMemcpyFromSymbol(velocities, vel, sizeof(velocities));
             writeCSV((float4 *)phy_attributes, (float3 *)velocities, iter);
         }
+        //  Call the kernels to execute over GPU.
+        computeUpdates<<<N_BLOCKS, THREADS_PER_BLOCK>>>();
+        updateValues<<<N_BLOCKS, THREADS_PER_BLOCK>>>();
     }
     cudaMemcpyFromSymbol(phy_attributes, attr, sizeof(phy_attributes));
     cudaMemcpyFromSymbol(velocities, vel, sizeof(velocities));

@@ -35,7 +35,7 @@ __global__ void computeUpdates(){
      */
     acc[objIdx].x += acceleration.x;
     acc[objIdx].y += acceleration.y;
-    acc[objIdx].y += acceleration.y;
+    acc[objIdx].z += acceleration.z;
 }
 
 __global__ void updateValues(){
@@ -56,20 +56,6 @@ __global__ void updateValues(){
     v = vel[idx];
     a = acc[idx];
     /*
-     *  Update new coordinates for the object in the 3 - dimensional plane.
-     *  Updates are calculated as, S = ut + (1/2) * at^2
-     *  where   S           -   distance travelled in time t.
-     *          u           -   initial velocity
-     *          t           -   time
-     *          a           -   constant acceleration experience in time t.
-     *  Since t = 1 unit, S = u + (1/2) * a
-     *  Also, since S defines the relative distance travelled as a result of forces, it is added to the initial
-     *  spatial coordinates to get the resultant coordinates.
-     */
-    obj.x += (v.x + a.x / 2);
-    obj.y += (v.y + a.y / 2);
-    obj.z += (v.z + a.z / 2);
-    /*
      *  Update velocities of the object in 3 - dimensional plane.
      *  Updates are calculated as v = u + at
      *  where   v           -   updated velocity
@@ -81,6 +67,10 @@ __global__ void updateValues(){
     v.x += a.x;
     v.y += a.y;
     v.z += a.z;
+    // Update the spatial coordinates
+    obj.x += v.x;
+    obj.y += v.y;
+    obj.z += v.z;
     /*
      *  Update global memory to reflect the new values of spatial coordinates and velocity.
      *  Also reset acceleration to be computed for the next time step.
