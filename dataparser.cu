@@ -1,4 +1,7 @@
 #include "global.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 // This file is used to parse the input data and get it to the form that is required.
 
 void parseCSVData(float4 *phy_attributes, float3 *velocities){
@@ -38,10 +41,19 @@ void writeCSV(float4 *phy_attributes, float3 *velocities, int step){
                             phy_attributes[idx].w) != EOF && idx < N_SAMPLES; idx++);
     return;
 }
-void generate3DData(float4 *phy_attributes, float3 *velocities, int x[2], int y[2], int z[2], int vx[2], int vy[2], int vz[2], int m[2]){
+void generate3DData(float4 *phy_attributes, float3 *velocities){
     /*
-     * This subroutine generates 3-dimensional data given the min and max values for spatial coordinates x, y, z, velocities vx, vy, vz and mass m.
+     * This subroutine generates 3-dimensional data
      */
+    srand(time(NULL));
+    float seed = 10.0f;
+    int idx = 0;
+    for(idx = 0; idx < N_SAMPLES; idx++){
+        phy_attributes[idx].x = ((float)rand()/(float)(RAND_MAX)) * seed;
+	phy_attributes[idx].y = ((float)rand()/(float)(RAND_MAX)) * seed;
+	phy_attributes[idx].z = ((float)rand()/(float)(RAND_MAX)) * seed;
+	phy_attributes[idx].w = 1.0f/N_SAMPLES;
+    }
     return;
 }
 /*
