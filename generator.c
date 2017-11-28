@@ -8,8 +8,10 @@
 //  This file defines functions to generate 3-dimensional and 2-dimensional data
 
 //  Defining global seeds
-float seed = 10.0f
+float seed = 10.0f;
 float velocity_seed = 0.001f;
+
+float generateValue(float);
 
 void generate3DData(){
     /*
@@ -39,14 +41,6 @@ void generate3DData(){
                 phy_attributes.w);
         
     }
-    for(idx = 0; idx < N_SAMPLES && fprintf(stream,"%f,%f,%f,%f,%f,%f,%f\n",
-                                            phy_attributes[idx].x,
-                                            phy_attributes[idx].y,
-                                            phy_attributes[idx].z,
-                                            velocities[idx].x,
-                                            velocities[idx].y,
-                                            velocities[idx].z,
-                                            phy_attributes[idx].w) != EOF; idx++);
     return;
 }
 void generate2DData(){
@@ -79,5 +73,5 @@ void generate2DData(){
     return;
 }
 float generateValue(float seed){
-    (((float)rand()/(float)(RAND_MAX)) * seed) - (seed/2);
+    return((((float)rand()/(float)(RAND_MAX)) * seed) - (seed/2));
 }
