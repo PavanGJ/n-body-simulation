@@ -1,13 +1,9 @@
-#include "global.h"
+#include "../global.h"
 
 //Define # of Blocks in the Device and the # of threads in each block.
 #ifndef N_BLOCKS
-#define N_BLOCKS 125
-#define THREADS_PER_BLOCK 512
-#endif
-
-#ifndef GRAVI_CONST
-#define GRAVI_CONST 1.0
+#define N_BLOCKS 3
+#define THREADS_PER_BLOCK 1
 #endif
 
 //Declaring global memory
