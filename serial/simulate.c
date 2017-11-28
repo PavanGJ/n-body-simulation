@@ -50,17 +50,17 @@ float3 computeForce(float4 attr_obj_1, float4 attr_obj_2){
     return acceleration;
 }
 
-void updates(){
+void update(){
     /*
      *  Compute updates for each body as a resultant of the forces acting on it.
      *  For each body, compute the force acting on it because of every other body and update
      *  the coordinates.
      */
     int idx_i, idx_j;
-    float3 acceleration, updates, vel;
+    float3 acceleration, updates, vel, reset = {0.0f, 0.0f, 0.0f};
     float4 obj;
     for(idx_i = 0; idx_i < N_SAMPLES; idx_i++){
-        acceleration = {0.0f, 0.0f, 0.0f};
+        acceleration = reset;
         obj = phy_attributes[idx_i];
         for(idx_j = 0; idx_j < N_SAMPLES; idx_j++){
             if(idx_i == idx_j)
