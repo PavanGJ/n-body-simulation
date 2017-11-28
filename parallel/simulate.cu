@@ -28,7 +28,7 @@ void simulateOnGPU(){
     //	Create and register cuda events
     cudaEventCreate(&start);
     cudaEventCreate(&end);
-    cudaEventCreate(execStart);
+    cudaEventCreate(&execStart);
     cudaEventCreate(&execEnd);
 
     cudaEventRecord(start);
@@ -68,13 +68,13 @@ void simulateOnGPU(){
     cudaEventElapsedTime(&totalTime, start, end);
     cudaEventElapsedTime(&execTime, execStart, execEnd);
     //	Write results
-    writeMeasureToFile("Nvidia GPU", "Linear", ""Total Time", totalTime);
+    writeMeasureToFile("Nvidia GPU", "Linear", "Total Time", totalTime);
     writeMeasureToFile("Nvidia GPU", "Linear", "Exec Time", execTime);
     writeToCSV((float4 *)phy_attributes, (float3 *)velocities, ITERATIONS);
 
     //	Destroy events
-    cudaEventDestroy(&start);
-    cudaEventDestroy(&end);
-    cudaEventDestroy(&execStart);
-    cudaEventDestroy(&execEnd);
+    cudaEventDestroy(start);
+    cudaEventDestroy(end);
+    cudaEventDestroy(execStart);
+    cudaEventDestroy(execEnd);
 }
