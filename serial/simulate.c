@@ -12,7 +12,7 @@
 float4 phy_attributes[N_SAMPLES];
 float3 velocities[N_SAMPLES];
 
-float3 computeForce(float4 attr_obj_1, float4 attr_obj_2){
+float3 force(float4 attr_obj_1, float4 attr_obj_2){
     /*
      *  Computes accelerations acting on obj defined by attr_obj_1, lets call it obj_1, because of obj defined
      *  by attr_obj_2 - obj_2 in 3-dimensions.
@@ -66,7 +66,7 @@ void update(){
         for(idx_j = 0; idx_j < N_SAMPLES; idx_j++){
             if(idx_i == idx_j)
                 continue;
-            updates = computeForce(obj, phy_attributes[idx_j]);
+            updates = force(obj, phy_attributes[idx_j]);
             acceleration.x += updates.x;
             acceleration.y += updates.y;
             acceleration.z += updates.z;

@@ -1,3 +1,5 @@
+#pragma once
+
 void writeMeasureToFile(const char* dev, const char* execType, const char* measureType, float measureValue){
     /*
      *  This subroutine appends measure to file for further interpretation.

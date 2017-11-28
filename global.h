@@ -1,3 +1,5 @@
+#pragma once
+
 // Defining input file path
 #ifndef INPUT_PATH
 #define INPUT_PATH "input.csv"
