@@ -4,28 +4,13 @@
 
 #include "../global.h"
 #include "../csvparser.c"
+#include "../filewriter.c"
 #include "npairs.h"
 
 // This file is the entry point for the simulation
 
 float4 phy_attributes[N_SAMPLES];
 float3 velocities[N_SAMPLES];
-
-void writeTimeToFile(time_t begin, time_t read, time_t end){
-    /*
-     *  This subroutine appends time computational time for further interpretation.
-     */
-    FILE* outputStream;
-    char output[256] = OUTPUT_DIR;
-    char fileName[10] = "time.csv";
-    
-    strcat(output, fileName);
-    outputStream = fopen(output, "a+");
-    
-    fprintf(outputStream, "%d, %ld, %ld, %ld\n", N_SAMPLES, begin, read, end);
-    
-    return;
-}
 
 float3 computeForce(float4 attr_obj_1, float4 attr_obj_2){
     /*
@@ -106,34 +91,35 @@ void simulate(){
      *  float4 type array.
      *  Storing velocities in x, y & z directions in a float3 type array.
      */
-    time_t time_begin, time_read, time_end;
+    time_t start, end, execStart, execEnd;
     int iter;
     
     //  Recording the beginning time
-    time_begin = time(NULL);
+    start = time(NULL);
     
     //  Populating data from CSV file.
     readFromCSV((float4 *)phy_attributes, (float3 *)velocities);
     
     //  Recording time after the data is parsed from the CSV file.
-    time_read = time(NULL);
     
+    execStart = time(NULL);
     for(iter = 0; iter < ITERATIONS; iter++){
         /*
          *  Uncomment to get intermediate results
-         */
+         *
          //  Write intermediate results every 100 iterations.
          if(iter % 100 == 0){
          writeCSV((float4 *)phy_attributes, (float3 *)velocities, iter);
          }
-         /*
+         *
          */
         update();
     }
-    
+    execEnd = time(NULL);
     //  Recording the finished time
-    time_end = time(NULL);
-    writeTimeToFile(time_begin, time_read, time_end);
+    end = time(NULL);
+    writeMeasureToFile("CPU", "Linear", "Total Time", end - start);
+    writeMeasureToFile("CPU", "Linear", "Exec Time", execEnd - execStart);
     writeToCSV((float4 *)phy_attributes, (float3 *)velocities, ITERATIONS);
     
 }
