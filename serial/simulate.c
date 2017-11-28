@@ -5,7 +5,6 @@
 #include "../global.h"
 #include "../csvparser.c"
 #include "../filewriter.c"
-#include "npairs.h"
 
 // This file is the entry point for the simulation
 
