@@ -5,7 +5,7 @@
 
 //  Defining output directory path
 #ifndef OUTPUT_DIR
-#define OUTPUT_DIR "../data/output/"
+#define OUTPUT_DIR "data/output/"
 #endif
 
 //  Defining number of samples in the input data

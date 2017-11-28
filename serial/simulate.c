@@ -59,6 +59,7 @@ void update(){
     int idx_i, idx_j;
     float3 acceleration, updates, vel, reset = {0.0f, 0.0f, 0.0f};
     float4 obj;
+    float4 updated_attr[N_SAMPLES];
     for(idx_i = 0; idx_i < N_SAMPLES; idx_i++){
         acceleration = reset;
         obj = phy_attributes[idx_i];
@@ -80,9 +81,11 @@ void update(){
         obj.y += vel.y;
         obj.z += vel.z;
         
-        phy_attributes[idx_i] = obj;
+        updated_attr[idx_i] = obj;
         velocities[idx_i] = vel;
     }
+    for(idx_i = 0; idx_i < N_SAMPLES; idx_i++)
+        phy_attributes[idx_i] = updated_attr[idx_i];
 }
 
 void simulate(){
@@ -91,18 +94,15 @@ void simulate(){
      *  float4 type array.
      *  Storing velocities in x, y & z directions in a float3 type array.
      */
-    time_t start, end, execStart, execEnd;
+    time_t start, end;
     int iter;
     
-    //  Recording the beginning time
-    start = time(NULL);
     
     //  Populating data from CSV file.
     readFromCSV((float4 *)phy_attributes, (float3 *)velocities);
     
-    //  Recording time after the data is parsed from the CSV file.
+    start = time(NULL);
     
-    execStart = time(NULL);
     for(iter = 0; iter < ITERATIONS; iter++){
         /*
          *  Uncomment to get intermediate results
@@ -115,11 +115,11 @@ void simulate(){
          */
         update();
     }
-    execEnd = time(NULL);
-    //  Recording the finished time
+    
     end = time(NULL);
+    
     writeMeasureToFile("CPU", "Linear", "Total Time", end - start);
-    writeMeasureToFile("CPU", "Linear", "Exec Time", execEnd - execStart);
+    
     writeToCSV((float4 *)phy_attributes, (float3 *)velocities, ITERATIONS);
     
 }
