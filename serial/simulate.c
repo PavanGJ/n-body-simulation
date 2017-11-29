@@ -108,7 +108,7 @@ void simulate(){
          *
          //  Write intermediate results every 100 iterations.
          if(iter % 100 == 0){
-         writeCSV((float4 *)phy_attributes, (float3 *)velocities, iter);
+             writeToCSV((float4 *)phy_attributes, (float3 *)velocities, iter);
          }
          *
          */
