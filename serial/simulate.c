@@ -93,14 +93,14 @@ void simulate(){
      *  float4 type array.
      *  Storing velocities in x, y & z directions in a float3 type array.
      */
-    time_t start, end;
+    clock_t start, end;
     int iter;
     
     
     //  Populating data from CSV file.
     readFromCSV((float4 *)phy_attributes, (float3 *)velocities);
     
-    start = time(NULL);
+    start = clock();
     
     for(iter = 0; iter < ITERATIONS; iter++){
         /*
@@ -115,9 +115,9 @@ void simulate(){
         update();
     }
     
-    end = time(NULL);
+    end = clock();
     
-    writeMeasureToFile("CPU", "Linear", "Total Time", end - start);
+    writeMeasureToFile("CPU", "Linear", "Total Time", (end - start)/((float)CLOCKS_PER_SECOND/1000.0f));
     
     writeToCSV((float4 *)phy_attributes, (float3 *)velocities, ITERATIONS);
     

@@ -29,5 +29,5 @@
 
 //  Defining the number of iteration of the simulation to be run.
 #ifndef ITERATIONS
-#define ITERATIONS 2000
+#define ITERATIONS 1000
 #endif
