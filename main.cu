@@ -32,7 +32,8 @@ int main(int args, char *argv[]){
         else{
             printf("ERROR. Incorrect arguments.\n");
             printf("Arguments Allowed:\n\t--generate=[3d/2d]\t:\tUse to generate input data\n\t--cpu\t\t:\tUse to run on CPU\n");
-        }
+            return 1;
+	}
     }
     if(generate == TRUE){
         switch (threeDim) {
