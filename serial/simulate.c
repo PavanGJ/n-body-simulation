@@ -117,7 +117,7 @@ void simulate(){
     
     end = clock();
     
-    writeMeasureToFile("CPU", "Linear", "Total Time", (end - start)/((float)CLOCKS_PER_SECOND/1000.0f));
+    writeMeasureToFile("CPU", "Linear", "Total Time", (end - start)/((float)CLOCKS_PER_SEC/1000.0f));
     
     writeToCSV((float4 *)phy_attributes, (float3 *)velocities, ITERATIONS);
     
